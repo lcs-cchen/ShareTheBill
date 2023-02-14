@@ -10,7 +10,7 @@ import SwiftUI
 struct CalculationView: View {
     
     // MARK: Stored properties
-    
+    @State var history: [Result] = []
     // How much was the bill?
     @State var providedBillAmount = ""
     
@@ -24,7 +24,6 @@ struct CalculationView: View {
     @State var peopleCount = 2
     
     // Stores the history of tip calculations
-    @Binding var history: [Result]
     
     // MARK: Computed properties
     
@@ -97,7 +96,7 @@ struct CalculationView: View {
         
         // Return the amount per person
         return amountPerPerson
-
+        
     }
     
     // Format the amount each person pays, or show an error
@@ -111,7 +110,7 @@ struct CalculationView: View {
         
         // It could be calculated, so format it nicely
         return amount.formatted(.number.precision(.fractionLength(2)))
-
+        
     }
     
     
@@ -122,13 +121,7 @@ struct CalculationView: View {
             
             Group {
                 
-                HStack {
-                    Text("Bill Amount")
-                        .font(.headline.smallCaps())
-                    
-                    Spacer()
-                }
-                .padding(.horizontal)
+                TitleView(title: "Bill Amount")
                 
                 HStack(spacing: 5) {
                     Text("$")
@@ -142,13 +135,7 @@ struct CalculationView: View {
             
             Group {
                 
-                HStack {
-                    Text("Tip Percentage")
-                        .font(.headline.smallCaps())
-                    
-                    Spacer()
-                }
-                .padding(.horizontal)
+                TitleView(title: "Tip Percentage")
                 
                 Picker("Tip Percentage",
                        selection: $selectedTipPercentage) { // Now a "live" binding
@@ -171,104 +158,93 @@ struct CalculationView: View {
             Group {
                 
                 HStack {
-                    Text("Total with Tip")
-                        .font(.headline.smallCaps())
+                    TitleView(title: "Total With Tip")
+                    
+                    HStack(spacing: 5) {
+                        Text("$")
+                        
+                        Text(totalWithTipFormatted)
+                        
+                        Spacer()
+                    }
+                   .padding()
+                    
+                }
+                
+                Group {
+                    
+                    TitleView(title: "How Many People?")
+                    
+                    // Now a "live" binding connected to "peopleCount"
+                    Stepper("\(peopleCount)",
+                            value: $peopleCount,
+                            in: 2...20)
+                    .padding()
+                    
+                }
+                
+                Group {
+                    
+                    
+                    
+                    HStack {
+                        TitleView(title: "Each Person Pays...")
+                        
+                        HStack(spacing: 5) {
+                            Text("$")
+                            
+                            Text(amountEachPersonPaysFormatted)
+                            
+                            Spacer()
+                        }
+                        .padding()
+                        
+                    }
+                    
+                    
+                    Button(action: {
+                        
+                        // Create a string version of the bill amount
+                        guard let amount = billAmount else {
+                            return
+                        }
+                        let amountFormatted = String( amount.formatted(.number.precision(.fractionLength(2))))
+                        
+                        // Create a string version of the percentage
+                        let percentage = String(selectedTipPercentage)
+                        
+                        // Create a string version of the people count
+                        let people = String(peopleCount)
+                        
+                        // Create the prior result, all put together into an instance of Result
+                        let priorResult = Result(billAmount: amountFormatted,
+                                                 percentage: percentage,
+                                                 totalWithTip: totalWithTipFormatted,
+                                                 peopleCount: people,
+                                                 amountPerPerson: amountEachPersonPaysFormatted)
+                        
+                        // Save the prior result to the history
+                        history.append(priorResult)
+                        
+                    }, label: {
+                        Text("Save")
+                            .font(.headline.smallCaps())
+                    })
+                    .buttonStyle(.bordered)
                     
                     Spacer()
                 }
-                .padding(.horizontal)
-                
-                HStack(spacing: 5) {
-                    Text("$")
-                    
-                    Text(totalWithTipFormatted)
-                    
-                    Spacer()
-                }
-                .padding()
-                
+                .padding(.top, 10)
+                .navigationTitle("Share the Bill")
             }
-            
-            Group {
-                
-                HStack {
-                    Text("How many people?")
-                        .font(.headline.smallCaps())
-                    
-                    Spacer()
-                }
-                .padding(.horizontal)
-                
-                // Now a "live" binding connected to "peopleCount"
-                Stepper("\(peopleCount)",
-                        value: $peopleCount,
-                        in: 2...20)
-                .padding()
-                
-            }
-            
-            Group {
-                
-                HStack {
-                    Text("Each person Pays...")
-                        .font(.headline.smallCaps())
-                    
-                    Spacer()
-                }
-                .padding(.horizontal)
-                
-                HStack(spacing: 5) {
-                    Text("$")
-                    
-                    Text(amountEachPersonPaysFormatted)
-                    
-                    Spacer()
-                }
-                .padding()
-                
-            }
-            
-            Button(action: {
-                
-                // Create a string version of the bill amount
-                guard let amount = billAmount else {
-                    return
-                }
-                let amountFormatted = String( amount.formatted(.number.precision(.fractionLength(2))))
-                
-                // Create a string version of the percentage
-                let percentage = String(selectedTipPercentage)
-                
-                // Create a string version of the people count
-                let people = String(peopleCount)
-                
-                // Create the prior result, all put together into an instance of Result
-                let priorResult = Result(billAmount: amountFormatted,
-                                         percentage: percentage,
-                                         totalWithTip: totalWithTipFormatted,
-                                         peopleCount: people,
-                                         amountPerPerson: amountEachPersonPaysFormatted)
-                
-                // Save the prior result to the history
-                history.append(priorResult)
-                
-            }, label: {
-                Text("Save")
-                    .font(.headline.smallCaps())
-            })
-            .buttonStyle(.bordered)
-          
-            Spacer()
         }
-        .padding(.top, 10)
-        .navigationTitle("Share the Bill")
     }
 }
 
 struct CalculationView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView {
-//            CalculationView()
+           CalculationView()
         }
     }
 }

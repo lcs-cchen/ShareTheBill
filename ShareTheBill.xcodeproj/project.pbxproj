@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E2B7FAA298D9952008253F6 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E2B7FA9298D9952008253F6 /* TitleView.swift */; };
 		81612717298BD09200BEA301 /* ShareTheBillApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81612716298BD09200BEA301 /* ShareTheBillApp.swift */; };
 		8161271B298BD09300BEA301 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8161271A298BD09300BEA301 /* Assets.xcassets */; };
 		8161271E298BD09300BEA301 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8161271D298BD09300BEA301 /* Preview Assets.xcassets */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6E2B7FA9298D9952008253F6 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		81612713298BD09200BEA301 /* ShareTheBill.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareTheBill.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81612716298BD09200BEA301 /* ShareTheBillApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTheBillApp.swift; sourceTree = "<group>"; };
 		8161271A298BD09300BEA301 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -38,6 +40,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E2B7FA8298D9933008253F6 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				6E2B7FA9298D9952008253F6 /* TitleView.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		8161270A298BD09200BEA301 = {
 			isa = PBXGroup;
 			children = (
@@ -85,6 +95,7 @@
 		81612725298BD1E200BEA301 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6E2B7FA8298D9933008253F6 /* Helpers */,
 				81612726298BD22200BEA301 /* CalculationView.swift */,
 				8161272A298BF33600BEA301 /* ResultView.swift */,
 				8161276C298C4EA800BEA301 /* HistoryView.swift */,
@@ -167,6 +178,7 @@
 				8161276D298C4EA800BEA301 /* HistoryView.swift in Sources */,
 				81612727298BD22200BEA301 /* CalculationView.swift in Sources */,
 				81612717298BD09200BEA301 /* ShareTheBillApp.swift in Sources */,
+				6E2B7FAA298D9952008253F6 /* TitleView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

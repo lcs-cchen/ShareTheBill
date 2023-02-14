@@ -19,7 +19,7 @@ struct ShareTheBillApp: App {
     var body: some Scene {
         WindowGroup {
             TabView {
-                CalculationView(history: $history)
+                CalculationView(history: history)
                     .tabItem {
                         Image(systemName: "rectangle.split.2x2.fill")
                         Text("Calculate")
